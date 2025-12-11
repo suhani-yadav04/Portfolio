@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Suhani's Portfolio — Soulful</title>
+  <style>
+    :root{
+      --gold:#d4af37;
+      --bg-dark:#07101a;
+      --bg-light:#f6f5f2;
+      --card-dark:rgba(10,14,18,0.85);
+      --card-light:#ffffffee;
+      --muted-dark:rgba(255,255,255,0.85);
+      --muted-light:rgba(10,10,12,0.85);
+    }
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue';background:var(--bg);color:var(--muted);overflow-x:hidden;transition:background .45s ease,color .3s ease}
+    body.dark{--bg:linear-gradient(180deg,#061018 0%, #08202b 50%, var(--bg-dark) 100%);--muted:var(--muted-dark);} 
+    body.light{--bg:linear-gradient(180deg,#fffdf9 0%, #f7f4ee 60%);--muted:var(--muted-light);}    
+
+    /* scenic mountains + snow */
+    .scene{position:fixed;inset:0;z-index:0;pointer-events:none;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent 40%), radial-gradient(circle at 10% 10%, rgba(255,255,255,0.02), transparent 10%)}
+    .mountains{position:fixed;left:0;right:0;bottom:0;height:42vh;z-index:0;pointer-events:none;background-repeat:no-repeat;background-position:center bottom;background-size:cover}
+    body.dark .mountains{background-image:linear-gradient(180deg, rgba(5,10,12,0.0), rgba(0,0,0,0.45)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300"><defs><linearGradient id="g" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="%230a1b22"/><stop offset="1" stop-color="%23020509"/></linearGradient></defs><path d="M0 250 L200 100 L400 220 L600 80 L800 200 L1000 60 L1200 240 L1200 300 L0 300 Z" fill="url(%23g)"/></svg>');}
+    body.light .mountains{background-image:linear-gradient(180deg, rgba(255,255,255,0.0), rgba(220,220,220,0.6)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300"><defs><linearGradient id="g2" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="%23f7f5f2"/><stop offset="1" stop-color="%23e8e6e2"/></linearGradient></defs><path d="M0 250 L200 120 L400 230 L600 90 L800 210 L1000 70 L1200 240 L1200 300 L0 300 Z" fill="url(%23g2)"/></svg>');}
+
+    /* snow canvas */
+    #snow{position:fixed;inset:0;z-index:1;pointer-events:none}
+
+    .wrap{position:relative;z-index:5;min-height:100vh;display:flex;flex-direction:column;align-items:center}
+
+    header{width:100%;padding:20px 28px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .sig{font-size:24px;font-weight:900;color:var(--gold);letter-spacing:1px}
+    .chant{font-family:'Mangal','Noto Sans Devanagari',serif;font-size:16px;color:var(--gold);}
+
+    .mode-btn{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:8px;border-radius:10px;cursor:pointer;display:grid;place-items:center;width:44px;height:44px}
+
+    main{width:min(1100px,94%);margin:20px auto 120px;display:grid;grid-template-columns:1fr 360px;gap:28px}
+
+    .hero{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:26px;border-radius:18px;backdrop-filter:blur(6px);box-shadow:0 10px 30px rgba(2,6,12,0.25)}
+    .headline{font-size:40px;font-weight:900;color:var(--gold);display:flex;flex-direction:column;gap:6px}
+    .mini{font-size:12px;color:rgba(255,255,255,0.85)}
+
+    .gif-wrap{display:flex;align-items:center;justify-content:center;margin:18px 0}
+    .gif{width:240px;height:240px;border-radius:50%;overflow:hidden;display:grid;place-items:center;background:radial-gradient(circle at 30% 20%, rgba(212,175,55,0.12), transparent 25%);box-shadow:0 10px 40px rgba(0,0,0,0.3)}
+    .gif img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+
+    .projects{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:8px}
+    .card{background:var(--card-light);color:#07070a;padding:16px;border-radius:14px;min-height:120px;transition:transform .45s cubic-bezier(.2,.9,.25,1),box-shadow .35s,background .3s;box-shadow:0 8px 20px rgba(2,2,8,0.06)}
+    body.dark .card{background:var(--card-dark);color:var(--muted-dark)}
+    .card:hover{transform:translateY(-18px) rotateX(4deg) scale(1.02);box-shadow:0 28px 80px rgba(2,2,8,0.18)}
+
+    .meta{font-size:13px;color:rgba(0,0,0,0.45);margin-bottom:8px}
+    body.dark .meta{color:rgba(255,255,255,0.75)}
+    .title{font-weight:900}
+
+    aside{position:sticky;top:36px;height:fit-content}
+    .panel{background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));padding:18px;border-radius:14px}
+    .label{font-weight:700;color:var(--gold)}
+
+    .contact-fab{position:fixed;right:22px;bottom:22px;background:linear-gradient(135deg,#fff8ef,#fffbe6);color:#06060a;border-radius:16px;padding:12px 14px;box-shadow:0 12px 40px rgba(2,2,8,0.45);z-index:40;cursor:pointer;display:flex;gap:10px;align-items:center;opacity:0;transform:translateY(12px);transition:opacity .35s,transform .35s}
+    .contact-fab.show{opacity:1;transform:translateY(0)}
+    .contact-modal{position:fixed;right:22px;bottom:88px;width:320px;background:var(--card-light);color:#07070a;border-radius:12px;padding:14px;box-shadow:0 20px 60px rgba(2,2,8,0.12);z-index:50;display:none}
+    body.dark .contact-modal{background:var(--card-dark);color:var(--muted-dark)}
+    .contact-modal.show{display:block}
+    .reveal-phone{background:transparent;border:0;font-weight:700;color:var(--gold);cursor:pointer}
+
+    /* centered bottom notification styling */
+    .notify-center{position:fixed;left:50%;transform:translateX(-50%);bottom:40px;z-index:70;min-width:320px;max-width:90%;border-radius:12px;padding:14px 18px;background:linear-gradient(135deg,rgba(255,255,255,0.98),#fff9f1);box-shadow:0 18px 50px rgba(2,2,8,0.2);color:#041018;display:none;align-items:center;gap:12px}
+    body.dark .notify-center{background:linear-gradient(135deg,rgba(6,12,18,0.96),rgba(12,20,26,0.9));color:var(--muted-dark)}
+    .notify-center.show{display:flex;animation:pop .5s ease}
+    @keyframes pop{0%{transform:translateX(-50%) translateY(10px) scale(.98);opacity:0}100%{transform:translateX(-50%) translateY(0) scale(1);opacity:1}}
+
+    footer{padding:24px 28px;color:var(--muted);text-align:center}
+
+    .overlay{position:fixed;inset:0;display:grid;place-items:center;z-index:60}
+    .overlay.top{background:linear-gradient(180deg, rgba(3,5,14,0.96), rgba(5,7,10,0.96));}
+    .overlay.centered{background:transparent}
+    .overlay .center{display:flex;flex-direction:column;align-items:center;gap:12px}
+    .om{font-size:46px;color:var(--gold);font-weight:900}
+    .omsmall{font-size:18px;color:var(--muted)}
+
+    @media(max-width:880px){main{grid-template-columns:1fr}aside{position:relative;top:auto} .projects{grid-template-columns:1fr} .gif{width:160px;height:160px}}
+  </style>
+</head>
+<body class="dark">
+  <div class="scene"></div>
+  <div class="mountains"></div>
+  <canvas id="snow"></canvas>
+
+  <!-- Initial Om overlay (2s) -->
+  <div id="overlayOm" class="overlay top" aria-hidden="false">
+    <div class="center">
+      <div class="om">"ॐ नमः शिवाय"</div>
+      <div style="width:160px;height:160px;border-radius:999px;overflow:hidden;display:grid;place-items:center;background:radial-gradient(circle,#fff6cc,transparent);box-shadow:0 12px 40px rgba(0,0,0,0.6)">
+        <div style="font-size:56px;color:var(--gold);font-weight:900">ॐ</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Welcome GIF overlay (brief) -->
+  <div id="overlayWelcome" class="overlay centered" style="display:none;opacity:0">
+    <div class="center">
+      <div class="omsmall" style="font-size:20px;color:var(--gold);">Welcome — loading portfolio</div>
+      <div style="width:140px;height:140px;border-radius:999px;overflow:hidden;display:grid;place-items:center;background:linear-gradient(135deg,#fff6e6,#fffdfa);box-shadow:0 10px 40px rgba(0,0,0,0.4)">
+        <!-- placeholder welcome GIF -->
+        <div style="font-weight:800;color:#0b0b10">WELCOME</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap" id="app">
+    <header>
+      <div class="brand">
+        <!-- HAR HAR MAHADEV removed as requested -->
+      </div>
+      <div>
+        <button id="toggleTheme" class="mode-btn" title="Toggle theme" aria-label="Toggle theme">
+          <svg id="modeIcon" width="22" height="22" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"></svg>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="headline">Suhani's Portfolio</div>
+
+        <div class="gif-wrap">
+          <div class="gif" id="centerGif">
+            
+            <img id="profilePic" src="/https://greenwoodhigh.edu.in/wp-content/uploads/2024/03/image-15.jpeg" alt="Suhani"/>
+          </div>
+        </div>
+
+        <p class="mini">A simple act of caring can create an endless ripple.</p>
+
+        <div class="projects" id="projects">
+          <!-- more projects added -->
+          <div class="card" data-tilt data-variant="1">
+            <div class="meta">Web • React</div>
+            <div class="title">Multi-vendor Marketplace</div>
+            <div class="desc">A clean marketplace demo with vendor dashboards and stripe integration.</div>
+          </div>
+          <div class="card" data-tilt data-variant="2">
+            <div class="meta">AI • PyTorch</div>
+            <div class="title">Ocular Disease Classifier</div>
+            <div class="desc">Fundus image classifier research project with interpretability visualizations.</div>
+          </div>
+          <div class="card" data-tilt data-variant="3">
+            <div class="meta">Data • NLP</div>
+            <div class="title">Sentiment Analysis Pipeline</div>
+            <div class="desc">End-to-end pipeline for ingesting tweets and producing dashboards.</div>
+          </div>
+          <div class="card" data-tilt data-variant="4">
+            <div class="meta">Tooling</div>
+            <div class="title">Mood Music Recommender</div>
+            <div class="desc">A small recommender using TF-IDF and collaborative signals wrapped in Streamlit.</div>
+          </div>
+          
+          
+        </div>
+      </section>
+
+      <aside>
+        <div class="panel">
+          <div style="font-weight:900;font-size:18px;color:var(--gold)">About</div>
+          <div style="margin-top:8px"><span class="label">College:</span> Netaji Subhas University of Technology</div>
+          <div style="margin-top:6px"><span class="label">School:</span> John Wesley Convent School</div>
+          <div style="margin-top:6px"><span class="label">Earlier School:</span> D.G.V. SR SEC PUBLIC SCHOOL</div>
+
+          <hr style="border:none;border-top:1px solid rgba(0,0,0,0.06);margin:12px 0" />
+          <div style="font-weight:800;color:var(--gold)">Skills</div>
+          <div style="margin-top:8px">JavaScript • React • Next.js • Python • PyTorch • DSA(C++)</div>
+        </div>
+      </aside>
+    </main>
+
+    <footer></footer>
+  </div>
+
+  <div id="contactFab" class="contact-fab">Contact</div>
+
+  <!-- Contact modal (right) -->
+  <div id="contactModal" class="contact-modal" role="dialog" aria-hidden="true">
+    <div style="font-weight:900;margin-bottom:6px">Get in touch</div>
+    <div style="font-size:13px;margin-bottom:6px"><strong>Phone:</strong> 8398023440</div>
+    <div style="font-size:13px;margin-bottom:6px"><strong>Email:</strong> suhaniyadav1802@gmail.com</div>
+    <div style="font-size:13px;margin-bottom:6px"><strong>GitHub:</strong> <a href="https://github.com/suhani-yadav04" target="_blank" style="color:var(--gold)">github.com/suhani-yadav04</a></div>
+    <div style="font-size:13px;margin-bottom:6px"><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/suhani-yadav-ba9763275?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" style="color:var(--gold)">linkedin.com/in/suhani-yadav</a></div>
+  </div>
+
+  <!-- Mail-send popup that appears after scrolling and 4s delay (centered-bottom now) -->
+  <div id="mailPopup" class="notify-center" style="display:none;">
+    <div style="flex:1">
+      <div style="font-weight:900;margin-bottom:6px">Send a quick message</div>
+      <div style="font-size:13px;margin-bottom:8px">Message will be sent to <strong>suhaniyadav1802@gmail.com</strong></div>
+      <textarea id="mailMessage" rows="3" style="width:100%;padding:8px;border-radius:8px;border:1px solid rgba(0,0,0,0.06);resize:vertical" placeholder="Write your message..."></textarea>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-left:12px">
+      <button id="mailSend" style="background:var(--gold);border:0;padding:10px 12px;border-radius:8px;color:#081017;font-weight:800;cursor:pointer">Send</button>
+      <button id="mailLater" style="background:transparent;border:1px solid rgba(0,0,0,0.06);padding:8px 12px;border-radius:8px;cursor:pointer">Later</button>
+      <button id="closeMailPopup" style="background:transparent;border:0;font-weight:700;cursor:pointer">✕</button>
+    </div>
+  </div>
+
+  <!-- Timed bottom-center greeting popup (Have a good one!!) -->
+  <div id="greetPopup" class="notify-center" style="display:none;min-width:260px;max-width:420px">
+    <div style="flex:1">
+      <div style="font-weight:900">Have a good one!!</div>
+      <div style="font-size:13px;margin-top:6px;opacity:0.9"> Suhani's portfolio ✨</div>
+    </div>
+    <button id="closeGreet" style="background:transparent;border:0;font-weight:700;cursor:pointer;margin-left:12px">✕</button>
+  </div>
+
+  <script>
+    // overlay sequence: Om (2s) -> welcome (1.1s) -> reveal
+    (function(){
+      const om=document.getElementById('overlayOm');
+      const welcome=document.getElementById('overlayWelcome');
+      setTimeout(()=>{
+        om.style.transition='opacity .5s'; om.style.opacity=0;
+        setTimeout(()=>{ om.style.display='none'; welcome.style.display='grid'; setTimeout(()=>{ welcome.style.transition='opacity .45s'; welcome.style.opacity=1; setTimeout(()=>{ welcome.style.opacity=0; setTimeout(()=>{ welcome.style.display='none'; },450); },1100); },60); },500);
+      },2000);
+    })();
+
+    // snow canvas
+    (function(){
+      const canvas=document.getElementById('snow');const ctx=canvas.getContext('2d');let w=window.innerWidth,h=window.innerHeight;canvas.width=w;canvas.height=h;const flakes=[];function r(a,b){return Math.random()*(b-a)+a}
+      for(let i=0;i<150;i++) flakes.push({x:r(0,w),y:r(0,h),r:r(0.6,3.6),spd:r(0.2,1.2)});
+      function loop(){ctx.clearRect(0,0,w,h);for(let f of flakes){ctx.beginPath();ctx.fillStyle='rgba(255,255,255,'+(0.05+f.r/6)+')';ctx.arc(f.x,f.y,f.r,0,Math.PI*2);ctx.fill();f.x+=Math.sin(f.spd)+0.2;f.y+=f.spd+0.9;if(f.y>h+10){f.y=-10;f.x=r(0,w)} }requestAnimationFrame(loop)}
+      loop();window.addEventListener('resize',()=>{w=window.innerWidth;h=window.innerHeight;canvas.width=w;canvas.height=h});
+    })();
+
+    // tilt effect for cards
+    document.querySelectorAll('[data-tilt]').forEach(el=>{
+      el.addEventListener('mousemove',e=>{
+        const r=el.getBoundingClientRect();const x=e.clientX-r.left;const y=e.clientY-r.top;const rx=(y - r.height/2)/r.height*10;const ry=(x - r.width/2)/r.width*-10;el.style.transform=`translateY(-6px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.02)`;
+      });
+      el.addEventListener('mouseleave',()=>{el.style.transform='translateY(0) rotateX(0) rotateY(0)';});
+    });
+
+    // contact FAB behavior: show on scroll and toggle modal
+    const fab=document.getElementById('contactFab');const modal=document.getElementById('contactModal');let shown=false;window.addEventListener('scroll',()=>{ if(window.scrollY>120){shown=true;fab.classList.add('show');}else{fab.classList.remove('show');}});
+    fab.addEventListener('click',()=>{modal.classList.toggle('show');modal.setAttribute('aria-hidden', modal.classList.contains('show')? 'false':'true');});
+    document.getElementById('revealPhone').addEventListener('click',function(){this.innerText='+91 83*****440';});
+
+    // subtle parallax for mountains
+    document.addEventListener('mousemove',e=>{const fx=(e.clientX/window.innerWidth-0.5)*12;const fy=(e.clientY/window.innerHeight-0.5)*8;document.querySelectorAll('.mountains').forEach(m=>{m.style.transform=`translate3d(${fx}px,${fy}px,0)`});});
+
+    // theme toggle + correct SVG manipulation (createElementNS)
+    const body=document.body;const toggle=document.getElementById('toggleTheme');const svgIcon=document.getElementById('modeIcon');
+    function clearSvg(){while(svgIcon.firstChild) svgIcon.removeChild(svgIcon.firstChild)}
+    function makePath(d, opts={}){const p=document.createElementNS('http://www.w3.org/2000/svg','path');p.setAttribute('d',d);if(opts.stroke) p.setAttribute('stroke',opts.stroke);if(opts.strokeWidth) p.setAttribute('stroke-width',opts.strokeWidth);if(opts.fill) p.setAttribute('fill',opts.fill);if(opts.linecap) p.setAttribute('stroke-linecap',opts.linecap);if(opts.linejoin) p.setAttribute('stroke-linejoin',opts.linejoin);return p}
+    function setIcon(isLight){ clearSvg(); if(isLight){ // sun: circle + rays
+        const circ=makePath('M12 6a6 6 0 100 12 6 6 0 000-12z',{stroke:'currentColor',strokeWidth:'1.2',fill:'none',linecap:'round',linejoin:'round'});
+        svgIcon.appendChild(circ);
+        const rays=[ 'M12 2v2','M12 20v2','M4.22 4.22l1.42 1.42','M18.36 18.36l1.42 1.42','M1 12h2','M21 12h2','M4.22 19.78l1.42-1.42','M18.36 5.64l1.42-1.42' ];
+        for(const r of rays){svgIcon.appendChild(makePath(r,{stroke:'currentColor',strokeWidth:'1.1',linecap:'round',linejoin:'round',fill:'none'}))}
+      } else { // moon
+        const moon=makePath('M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z',{stroke:'currentColor',strokeWidth:'1.4',linecap:'round',linejoin:'round',fill:'none'});
+        svgIcon.appendChild(moon);
+      }}
+
+    // initialize theme from localStorage or prefers-color-scheme
+    (function(){const pref=localStorage.getItem('pref-theme');let light=false; if(pref==='light') light=true; else if(!pref){ if(window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) light=true;} body.classList.toggle('light', light); body.classList.toggle('dark', !light); setIcon(light);})();
+    toggle.addEventListener('click',()=>{const isLight=body.classList.toggle('light');body.classList.toggle('dark',!isLight); setIcon(isLight); localStorage.setItem('pref-theme', isLight? 'light':'dark');});
+
+    // mail popup: show after user scrolls and 4s delay
+    (function(){
+      const mailPopup=document.getElementById('mailPopup');
+      const mailSend=document.getElementById('mailSend');
+      const mailLater=document.getElementById('mailLater');
+      const closeMail=document.getElementById('closeMailPopup');
+      const mailTextarea=document.getElementById('mailMessage');
+      let mailTimer=null;let mailShown=false;let scrolled=false;
+      function showMail(){ if(mailShown) return; mailShown=true; mailPopup.classList.add('show'); mailPopup.style.display='flex'; }
+      window.addEventListener('scroll',()=>{
+        if(scrolled) return; scrolled=true;
+        mailTimer=setTimeout(()=>{ showMail(); },4000);
+      });
+      mailLater.addEventListener('click',()=>{ if(mailTimer){clearTimeout(mailTimer);} mailPopup.style.display='none'; });
+      closeMail.addEventListener('click',()=>{ if(mailTimer) clearTimeout(mailTimer); mailPopup.style.display='none'; });
+      mailSend.addEventListener('click',()=>{
+        const body=encodeURIComponent(mailTextarea.value || 'Hi Suhani — I would like to connect with you.');
+        const subject=encodeURIComponent('Portfolio message');
+        const mailto=`mailto:suhaniyadav1802@gmail.com?subject=${subject}&body=${body}`;
+        // open mail client
+        window.location.href = mailto;
+        mailPopup.style.display='none';
+      });
+    })();
+
+    // timed greeting popup after 70s
+    (function(){
+      const greet=document.getElementById('greetPopup');
+      const closeGreet=document.getElementById('closeGreet');
+      let greetTimer=setTimeout(()=>{
+        greet.classList.add('show');
+        // auto-hide after 7s
+        setTimeout(()=>{greet.classList.remove('show');},7000);
+      },70000);
+      closeGreet.addEventListener('click',()=>{clearTimeout(greetTimer);greet.classList.remove('show');});
+    })();
+
+    // smooth inertia scroll snippet
+    (function(){let ticking=false;window.addEventListener('scroll',()=>{ if(!ticking){window.requestAnimationFrame(()=>{ticking=false});}ticking=true;});})();
+  </script>
+</body>
+</html>
