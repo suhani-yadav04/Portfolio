@@ -52,15 +52,11 @@ This portfolio is made using **pure frontend technologies**:
 - **HTML5** — structure of the site  
 - **CSS3** — styling, gradients, animations, responsive design  
 - **JavaScript (Vanilla)** —  
-  - animated snow  
-  - theme toggle  
-  - popup logic  
-  - parallax  
-  - overlays & transitions  
+
 
 No frameworks, no dependencies — **fully lightweight and deployable anywhere**.
 
----
+---https://suhani-yadav04.github.io/Portfolio/
 
-## 📁 Project Structure
+
 
